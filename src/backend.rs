@@ -1,3 +1,4 @@
+use bitcoin::Txid;
 use electrum_client::{GetBalanceRes, ElectrumApi, GetHistoryRes, ListUnspentRes};
 
 /// return balance of address
@@ -11,4 +12,8 @@ pub fn get_address_history(electrum_client: &electrum_client::Client, address: &
 
 pub fn get_script_list_unspent(electrum_client: &electrum_client::Client, address: &bitcoin::Address) -> Vec<ListUnspentRes> {    
     electrum_client.script_list_unspent(&address.script_pubkey()).unwrap()
+}
+
+pub fn transaction_broadcast_raw(electrum_client: &electrum_client::Client, raw_tx: &[u8]) -> Txid {    
+    electrum_client.transaction_broadcast_raw(raw_tx).unwrap()
 }
